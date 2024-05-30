@@ -16,7 +16,7 @@ def ip_address(ip):
 
 # Parsing the flags
 parser = argparse.ArgumentParser(description='DDoS attack script using simulated multithreading.')
-parser.add_argument('-d', '--destination', type=ip_address, required=True, help="Target IP address.")
+parser.add_argument('-d', '--destination', type=str, required=True, help="Target IP address.")
 parser.add_argument('-p', '--port', type=int, default=80, help="The port the script will attack (only 80 is supported for now)")
 parser.add_argument('-s', '--spoof', action='store_true', help='Use a spoofed random IP address.')
 parser.add_argument('-t', '--threads', type=int, default=500,  help='Specify the numbers of threads to be running.')
