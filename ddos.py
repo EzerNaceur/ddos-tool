@@ -23,7 +23,7 @@ parser.add_argument('-t', '--threads', type=int, default=500,  help='Specify the
 
 args = parser.parse_args()
 
-# Generating a random ip address for spoofing
+# Generate a random ip address for spoofing
 if args.spoof:
     fip = f"{random.randint(0, 255)}.{random.randint(0, 255)}.{random.randint(0, 255)}.{random.randint(0, 255)}"
 else:
